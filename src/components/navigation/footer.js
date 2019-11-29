@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Container, Row, ModalFooter } from "reactstrap";
-
+import { MDBNavLink } from "mdbreact";
 const Footer = () => {
     return (
         <ModalFooter color="blue" className="font-small pt-4 mt-4">
@@ -16,16 +16,16 @@ const Footer = () => {
                         <h5 className="title">Navigation</h5>
                         <ul>
                             <li className="list-unstyled">
-                                <a href="/">Home</a>
+                                <MDBNavLink to="/">Home</MDBNavLink>
                             </li>
                             <li className="list-unstyled">
-                                <a href="/register">Register</a>
+                                <MDBNavLink to="/register">Register</MDBNavLink>
                             </li>
                             <li className="list-unstyled">
-                                <a href="/login">Login</a>
+                                <MDBNavLink to="/login">Login</MDBNavLink>
                             </li>
                             <li className="list-unstyled">
-                                <a href="/about">About</a>
+                                <MDBNavLink to="/about">About</MDBNavLink>
                             </li>
                         </ul>
                     </Col>

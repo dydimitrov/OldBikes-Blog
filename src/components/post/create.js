@@ -2,13 +2,19 @@ import React,{Component} from "react";
 import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 
 class PostCreate extends Component {
-    state = {
-        fname: "",
-        lname: "",
-        email: "",
-        category: "",
-        description: ""
-    };
+    constructor(props){
+        super(props)
+
+        this.state = {
+            fname: "",
+            lname: "",
+            email: "",
+            category: "",
+            description: ""
+        };
+        this.submitHandler = this.submitHandler.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
+    }
 
     submitHandler = event => {
         event.preventDefault();
@@ -16,6 +22,7 @@ class PostCreate extends Component {
     };
 
     changeHandler = event => {
+        event.preventDefault();
         this.setState({ [event.target.name]: event.target.value });
     };
 

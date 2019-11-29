@@ -41,8 +41,8 @@ class NavbarPage extends Component {
                                         <span className="mr-2">Post</span>
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu>
-                                        <MDBDropdownItem href="/post/create">Create</MDBDropdownItem>
-                                        <MDBDropdownItem href="/post/all">All posts</MDBDropdownItem>
+                                        <MDBNavLink to="/post/create">Create</MDBNavLink>
+                                        <MDBNavLink to="/post/all">All posts</MDBNavLink>
                                     </MDBDropdownMenu>
                                 </MDBDropdown>
                             </MDBNavItem>
