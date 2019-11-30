@@ -24,7 +24,7 @@ class Register extends Component {
                             <MDBCard>
                                 <MDBCardBody>
                                     <form onSubmit={this.handleSubmit.bind(this)}>
-                                        <p className="h2 text-center py-4">Sign in</p>
+                                        <p className="h2 text-center py-4">Login</p>
                                         <label
                                             htmlFor="defaultFormCardNameEx"
                                             className="grey-text font-weight-light"

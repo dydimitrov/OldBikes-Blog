@@ -15,8 +15,12 @@ import Logout from "./components/user/logout";
 import $ from 'jquery';
 
 class App extends Component {
-    constructor(props){
-        super(props)
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: sessionStorage.getItem("username"),
+            userId: sessionStorage.getItem("userId")
+        };
     }
     render() {
         return (
@@ -26,7 +30,7 @@ class App extends Component {
                     href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
                 />
                 <MDBContainer flex>
-                    <NavBar/>
+                    <NavBar username = {this.state.username}/>
                     <div id="loadingBox">Loading ...</div>
                     <div id="infoBox">Info</div>
                     <div id="errorBox">Error</div>
@@ -63,8 +67,8 @@ class App extends Component {
         this.showHome();
     }
 
-    showHome(){
-        return  <Redirect to='/' />
+    showHome= () => {
+        return <Redirect to='/' />
     }
     handleAjaxError(event, response) {
         let errorMsg = JSON.stringify(response);
@@ -80,7 +84,7 @@ class App extends Component {
 
         function loginSuccess(userInfo) {
             this.saveAuthInSession(userInfo);
-
+            this.showHome();
             this.showInfo("Login successful.");
         }
     }
@@ -90,7 +94,7 @@ class App extends Component {
 
         function registerSuccess(userInfo) {
             this.saveAuthInSession(userInfo);
-
+            this.showHome();
             this.showInfo("User registration successful.");
         }
     }

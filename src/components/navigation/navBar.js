@@ -16,6 +16,7 @@ class NavbarPage extends Component {
 
     render() {
         let username = this.props.username;
+        let isLoggedIn = username == null ? false : true;
         return (
             <MDBNavbar className="navbar-nav " expand="md">
                 <MDBNavbarBrand>
@@ -30,31 +31,46 @@ class NavbarPage extends Component {
                         <MDBNavItem>
                             <MDBNavLink to="/about">About</MDBNavLink>
                         </MDBNavItem>
-                        <MDBNavItem>
-                            <MDBNavLink to="/login">Login</MDBNavLink>
-                        </MDBNavItem>
-                        < MDBNavItem >
-                        < MDBNavLink to="/logout">Logout</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                        <MDBNavLink to="/register">Register</MDBNavLink>
-                        </MDBNavItem>
-                        <MDBNavItem>
-                        <MDBDropdown>
-                        <MDBDropdownToggle nav caret>
-                        <span className="mr-2">Post</span>
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu>
-                        <MDBNavLink to="/post/create">Create</MDBNavLink>
-                        <MDBNavLink to="/post/all">All posts</MDBNavLink>
-                        </MDBDropdownMenu>
-                        </MDBDropdown>
-                        </MDBNavItem>
-                        </MDBNavbarNav>
-                        </MDBCollapse>
-                        </MDBNavbar>
-                        );
+                        {
+                            isLoggedIn ? (
+                                <MDBNavItem>
+                                    < MDBNavLink to="/logout">Logout</MDBNavLink>
+                                </MDBNavItem>
+                            ) : (<>
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/login">Login</MDBNavLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/register">Register</MDBNavLink>
+                                    </MDBNavItem>
+                                </>
+                            )
                         }
-                        }
+                        <MDBNavItem>
+                            <MDBDropdown>
+                                <MDBDropdownToggle nav caret>
+                                    <span className="mr-2">Post</span>
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu>
+                                    {
+                                        isLoggedIn ? (
+                                            <>
+                                                <MDBNavLink to="/post/create">Create</MDBNavLink>
+                                                <MDBNavLink to="/post/all"> All posts</MDBNavLink>
+                                            </>
+                                        ):(
+                                            <MDBNavLink to="/post/all"> All posts</MDBNavLink>
+                                        )
+                                    }
 
-                        export default NavbarPage;
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+                        </MDBNavItem>
+                    </MDBNavbarNav>
+                </MDBCollapse>
+            </MDBNavbar>
+        );
+    }
+}
+
+export default NavbarPage;
