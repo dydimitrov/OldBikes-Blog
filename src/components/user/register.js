@@ -6,17 +6,28 @@ class Register extends Component{
     constructor(props){
         super(props)
 
-        this.state = {value :  ''}
-    }
+        this.state = {
+            username :  '',
+            password: ''
+        }
 
-    handleChange(event){
-        this.setState({value: event.target.value})
+        this.handleChangeUsername= this.handleChangeUsername.bind(this);
+        this.handleChangePassword= this.handleChangePassword.bind(this);
+        this.handleSubmit= this.handleSubmit.bind(this);
     }
-
-    handleSubmit(event){
-        //set ajax to api with value
+    handleChangeUsername(event) {
+        event.preventDefault();
+        this.setState({username:event.target.value})
     }
-
+    handleChangePassword(event) {
+        event.preventDefault();
+        this.setState({password:event.target.value})
+    }
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.onsubmit(
+            this.state.username, this.state.password);
+    }
     render() {
         return(
             <>
@@ -25,35 +36,18 @@ class Register extends Component{
                         <MDBCol md="6">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <form>
-                                        <h2 className="text-center">Sign up</h2>
+                                    <form onSubmit={this.handleSubmit}>
+                                        <h2 className="text-center">Register</h2>
                                         <div className="grey-text">
                                             <MDBInput
-                                                label="Your name"
+                                                label="Your username"
                                                 icon="user"
                                                 group
                                                 type="text"
                                                 validate
                                                 error="wrong"
                                                 success="right"
-                                            />
-                                            <MDBInput
-                                                label="Your email"
-                                                icon="envelope"
-                                                group
-                                                type="email"
-                                                validate
-                                                error="wrong"
-                                                success="right"
-                                            />
-                                            <MDBInput
-                                                label="Confirm your email"
-                                                icon="exclamation-triangle"
-                                                group
-                                                type="text"
-                                                validate
-                                                error="wrong"
-                                                success="right"
+                                                onChange={this.handleChangeUsername}
                                             />
                                             <MDBInput
                                                 label="Your password"
@@ -61,6 +55,7 @@ class Register extends Component{
                                                 group
                                                 type="password"
                                                 validate
+                                                onChange={this.handleChangePassword}
                                             />
                                         </div>
                                         <div className="text-center py-4 mt-3">

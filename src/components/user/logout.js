@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
-import requester from '../../infrastructure/requester';
+import KinveyRequester from "../../KinveyRequester";
 
 export default class Logout extends Component {
-    logout = () => {
-        requester.post('user', '_logout', 'kinvey')
-            .then(res => sessionStorage.removeItem('authtoken'));
-    }
-
     render = () => {
         this.logout();
         return <Redirect to='/' />
+    }
+
+    logout() {
+        KinveyRequester.logoutUser();
+        sessionStorage.clear();
+        this.setState({username: null, userId: null});
     }
 }

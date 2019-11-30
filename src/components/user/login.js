@@ -9,12 +9,10 @@ class Register extends Component {
         this.state = {value: ''}
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value})
-    }
-
     handleSubmit(event) {
-        //set ajax to api with value
+        event.preventDefault();
+        this.props.onsubmit(
+            this.usernameField.value, this.passwordField.value);
     }
 
     render() {
@@ -25,34 +23,36 @@ class Register extends Component {
                         <MDBCol md="6">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <form>
+                                    <form onSubmit={this.handleSubmit.bind(this)}>
                                         <p className="h2 text-center py-4">Sign in</p>
                                         <label
                                             htmlFor="defaultFormCardNameEx"
                                             className="grey-text font-weight-light"
                                         >
-                                            Your name
+                                            Your username
                                         </label>
                                         <input
                                             type="text"
                                             id="defaultFormCardNameEx"
                                             className="form-control"
+                                            ref={e => this.usernameField = e}
                                         />
                                         <br />
                                         <label
                                             htmlFor="defaultFormCardEmailEx"
                                             className="grey-text font-weight-light"
                                         >
-                                            Your email
+                                            Your password
                                         </label>
                                         <input
-                                            type="email"
+                                            type="password"
                                             id="defaultFormCardEmailEx"
                                             className="form-control"
+                                            ref={e => this.passwordField = e}
                                         />
                                         <div className="text-center py-4 mt-3">
                                             <MDBBtn className="btn-success" type="submit">
-                                                Send
+                                                Login
                                                 <MDBIcon far icon="paper-plane" className="ml-2" />
                                             </MDBBtn>
                                         </div>
