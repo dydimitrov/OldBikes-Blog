@@ -6,24 +6,40 @@ class PostCreate extends Component {
         super(props)
 
         this.state = {
-            fname: "",
-            lname: "",
+            firstName: "",
+            lastName: "",
             email: "",
             category: "",
             description: ""
         };
-        this.submitHandler = this.submitHandler.bind(this);
-        this.changeHandler = this.changeHandler.bind(this);
     }
 
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
+        this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description)
+        this.props.history.push('/')
     };
 
-    changeHandler = event => {
+    changeHandlerFirstName = event => {
         event.preventDefault();
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({firstName : event.target.value})
+    };
+    changeHandlerLastName = event => {
+        event.preventDefault();
+        this.setState({lastName : event.target.value})
+    };
+    changeHandlerEmail = event => {
+        event.preventDefault();
+        this.setState({email : event.target.value})
+    };
+    changeHandlerCategory = event => {
+        event.preventDefault();
+        this.setState({category : event.target.value})
+    };
+    changeHandlerDescription = event => {
+        event.preventDefault();
+        this.setState({description : event.target.value})
     };
 
     render() {
@@ -46,9 +62,9 @@ class PostCreate extends Component {
                                 First name
                             </label>
                             <input
-                                value={this.state.fname}
-                                name="fname"
-                                onChange={this.changeHandler}
+                                value={this.state.firstName}
+                                name="firstName"
+                                onChange={this.changeHandlerFirstName}
                                 type="text"
                                 id="defaultFormRegisterNameEx"
                                 className="form-control"
@@ -65,9 +81,9 @@ class PostCreate extends Component {
                                 Last name
                             </label>
                             <input
-                                value={this.state.lname}
-                                name="lname"
-                                onChange={this.changeHandler}
+                                value={this.state.lastName}
+                                name="lastName"
+                                onChange={this.changeHandlerLastName}
                                 type="text"
                                 id="defaultFormRegisterEmailEx2"
                                 className="form-control"
@@ -87,7 +103,7 @@ class PostCreate extends Component {
                             </label>
                             <input
                                 value={this.state.email}
-                                onChange={this.changeHandler}
+                                onChange={this.changeHandlerEmail}
                                 type="email"
                                 id="defaultFormRegisterConfirmEx3"
                                 className="form-control"
@@ -103,15 +119,15 @@ class PostCreate extends Component {
                                 htmlFor="category"
                                 className="grey-text"
                             >
-                                City
+                                Category
                             </label>
                             <input
                                 value={this.state.category}
-                                onChange={this.changeHandler}
+                                onChange={this.changeHandlerCategory}
                                 type="text"
                                 id="category"
                                 className="form-control"
-                                name="city"
+                                name="category"
                                 placeholder="Category..."
                                 required
                             />
@@ -127,11 +143,11 @@ class PostCreate extends Component {
                                 htmlFor="description"
                                 className="grey-text"
                             >
-                                State
+                                Description
                             </label>
                             <textarea
                                 value={this.state.state}
-                                onChange={this.changeHandler}
+                                onChange={this.changeHandlerDescription}
                                 type="text"
                                 id="description"
                                 className="form-control"
@@ -147,7 +163,7 @@ class PostCreate extends Component {
                     </MDBRow>
                     <MDBRow center>
                         <MDBBtn color="primary" type="submit">
-                            Submit Form
+                            Submit post
                         </MDBBtn>
                     </MDBRow>
                 </form>

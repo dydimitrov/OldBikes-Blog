@@ -19,9 +19,11 @@ class App extends Component {
         super(props);
         this.state = {
             username: sessionStorage.getItem("username"),
-            userId: sessionStorage.getItem("userId")
+            userId: sessionStorage.getItem("userId"),
+            isLoggedIn: false
         };
     }
+
     render() {
         return (
             <Router>
@@ -29,48 +31,44 @@ class App extends Component {
                     rel='stylesheet'
                     href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
                 />
-                <MDBContainer flex>
-                    <NavBar username = {this.state.username}/>
+                <MDBContainer flex="true">
+                    <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
                     <div id="loadingBox">Loading ...</div>
                     <div id="infoBox">Info</div>
                     <div id="errorBox">Error</div>
-                        <div className="bg">
-                            <Switch>
-                                <Route path="/" exact component={HomeContainer}/>
-                                <Route path="/about" exact component={About}/>
-                                <Route path="/login" exact component={() => <Login onsubmit={this.login.bind(this)}/>}/>
-                                <Route path="/logout" exact component={Logout}/>
-                                <Route path="/register" exact component={() => <Register onsubmit={this.register.bind(this)}/>}/>
-                                <Route path="/post/create" exact component={PostCreate}/>
-                                <Route component={ErrorPage}/>
-                            </Switch>
-                        </div>
+                    <div className="bg">
+                        <Switch>
+                            <Route path="/" exact component={HomeContainer}/>
+                            <Route path="/about" exact component={About}/>
+                            <Route path="/login" exact component={(props) => <Login {...props} onsubmit={this.login}/>}/>
+                            <Route path="/logout" exact component={(props) => <Logout {...props} logout={this.logout}/>}/>
+                            <Route path="/register" exact
+                                   component={(props) => <Register {...props} onsubmit={this.register}/>}/>
+                            <Route path="/post/create" exact component={(props) => <PostCreate {...props} onsubmit={this.createPost}/>}/>
+                            <Route component={ErrorPage}/>
+                        </Switch>
+                    </div>
                     <Footer/>
                 </MDBContainer>
             </Router>
         );
     }
+
     componentDidMount() {
-        // Attach global AJAX "loading" event handlers
         $(document).on({
-            ajaxStart: function() { $("#loadingBox").show() },
-            ajaxStop: function() { $("#loadingBox").hide() },
+            ajaxStart: function () {
+                $("#loadingBox").show()
+            },
+            ajaxStop: function () {
+                $("#loadingBox").hide()
+            },
         });
         $("#infoBox, #errorBox").hide();
-        // Attach a global AJAX error handler
+
         $(document).ajaxError(this.handleAjaxError.bind(this));
-
-        // Hide the info / error boxes when clicked
-
-
-        // Initially load the "Home" view when the app starts
-        this.showHome();
     }
 
-    showHome= () => {
-        return <Redirect to='/' />
-    }
-    handleAjaxError(event, response) {
+    handleAjaxError = (event, response) => {
         let errorMsg = JSON.stringify(response);
         if (response.readyState === 0)
             errorMsg = "Cannot connect due to network error.";
@@ -78,27 +76,32 @@ class App extends Component {
             errorMsg = response.responseJSON.description;
         this.showError(errorMsg);
     }
-    login(username, password) {
+    login = (username, password) => {
         KinveyRequester.loginUser(username, password)
             .then(loginSuccess.bind(this));
 
         function loginSuccess(userInfo) {
             this.saveAuthInSession(userInfo);
-            this.showHome();
             this.showInfo("Login successful.");
+            this.setState({isLoggedIn:true})
         }
     }
-    register(username, password) {
+    logout = () => {
+        KinveyRequester.logoutUser();
+        sessionStorage.clear();
+        this.setState({username: null, userId: null,isLoggedIn:false});
+    }
+    register = (username, password) => {
         KinveyRequester.registerUser(username, password)
             .then(registerSuccess.bind(this));
 
         function registerSuccess(userInfo) {
             this.saveAuthInSession(userInfo);
-            this.showHome();
             this.showInfo("User registration successful.");
+
         }
     }
-    saveAuthInSession(userInfo) {
+    saveAuthInSession = (userInfo) => {
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
         sessionStorage.setItem('userId', userInfo._id);
         sessionStorage.setItem('username', userInfo.username);
@@ -108,17 +111,24 @@ class App extends Component {
             userId: userInfo._id
         });
     }
-    showInfo(message) {
+    showInfo = (message) => {
         $('#infoBox').text(message).show();
-        setTimeout(function() {
+        setTimeout(function () {
             $('#infoBox').fadeOut();
-        }, 3000);
+        }, 1500);
     }
-    showError(errorMsg) {
+    showError = (errorMsg) => {
         $('#errorBox').text("Error: " + errorMsg).show();
     }
+
+    createPost = (firstName, lastName,email,category, description) => {
+        console.log(firstName, lastName,email,category, description)
+        KinveyRequester.createPost(firstName, lastName,email,category, description)
+            .then(createPostSuccess.bind(this));
+
+        function createPostSuccess() {
+            this.showInfo("Post created.");
+        }
+    }
 }
-
-
-
-export default App;
+export default App

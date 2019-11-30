@@ -1,35 +1,34 @@
 import React, {Component} from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn, MDBCard, MDBCardBody} from 'mdbreact';
 
 
-class Register extends Component{
-    constructor(props){
+class Register extends Component {
+    constructor(props) {
         super(props)
 
         this.state = {
-            username :  '',
+            username: '',
             password: ''
         }
+    }
 
-        this.handleChangeUsername= this.handleChangeUsername.bind(this);
-        this.handleChangePassword= this.handleChangePassword.bind(this);
-        this.handleSubmit= this.handleSubmit.bind(this);
-    }
-    handleChangeUsername(event) {
+    handleChangeUsername = (event) => {
         event.preventDefault();
-        this.setState({username:event.target.value})
+        this.setState({username: event.target.value})
     }
-    handleChangePassword(event) {
+    handleChangePassword = (event) => {
         event.preventDefault();
-        this.setState({password:event.target.value})
+        this.setState({password: event.target.value})
     }
-    handleSubmit(event) {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        this.props.onsubmit(
+        await this.props.onsubmit(
             this.state.username, this.state.password);
+        this.props.history.push('/')
     }
+
     render() {
-        return(
+        return (
             <>
                 <MDBContainer className="card-text text-center">
                     <MDBRow className="mt-3" center middle>
@@ -59,7 +58,7 @@ class Register extends Component{
                                             />
                                         </div>
                                         <div className="text-center py-4 mt-3">
-                                            <MDBBtn className="btn-success"  type="submit">
+                                            <MDBBtn className="btn-success" type="submit">
                                                 Register
                                             </MDBBtn>
                                         </div>

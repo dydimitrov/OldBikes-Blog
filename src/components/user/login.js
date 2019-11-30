@@ -9,10 +9,11 @@ class Register extends Component {
         this.state = {value: ''}
     }
 
-    handleSubmit(event) {
+    handleSubmit =  async(event) =>{
         event.preventDefault();
-        this.props.onsubmit(
+        await this.props.onsubmit(
             this.usernameField.value, this.passwordField.value);
+        this.props.history.push('/')
     }
 
     render() {
@@ -23,7 +24,7 @@ class Register extends Component {
                         <MDBCol md="6">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <form onSubmit={this.handleSubmit.bind(this)}>
+                                    <form onSubmit={this.handleSubmit}>
                                         <p className="h2 text-center py-4">Login</p>
                                         <label
                                             htmlFor="defaultFormCardNameEx"
