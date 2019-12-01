@@ -6,6 +6,7 @@ class PostCreate extends Component {
         super(props)
 
         this.state = {
+            title:"",
             firstName: "",
             lastName: "",
             email: "",
@@ -17,13 +18,17 @@ class PostCreate extends Component {
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
-        this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description)
+        this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
         this.props.history.push('/')
     };
 
     changeHandlerFirstName = event => {
         event.preventDefault();
         this.setState({firstName : event.target.value})
+    };
+    changeHandlerTitle = event => {
+        event.preventDefault();
+        this.setState({title : event.target.value})
     };
     changeHandlerLastName = event => {
         event.preventDefault();
@@ -138,7 +143,29 @@ class PostCreate extends Component {
                         </MDBCol>
                     </MDBRow>
                     <MDBRow>
-                        <MDBCol md="12" className="mb-3">
+                        <MDBCol md="6" className="mb-3">
+                            <label
+                                htmlFor="title"
+                                className="grey-text"
+                            >
+                                Title
+                            </label>
+                            <input
+                                value={this.state.title}
+                                onChange={this.changeHandlerTitle}
+                                type="text"
+                                id="title"
+                                className="form-control"
+                                name="title"
+                                placeholder="Title..."
+                                required
+                            />
+                            <div className="invalid-feedback">
+                                Your post must be at least 3 symbols.
+                            </div>
+                            <div className="valid-feedback">Looks good!</div>
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-3">
                             <label
                                 htmlFor="description"
                                 className="grey-text"

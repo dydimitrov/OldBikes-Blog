@@ -33,11 +33,8 @@ class App extends Component {
                 />
                 <MDBContainer flex="true">
                     <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
-                    <div id="loadingBox" className="spinner-border text-info" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                    <div id="infoBox">Info</div>
-                    <div id="errorBox">Error</div>
+                    <div id="infoBox" className="text-center">Info</div>
+                    <div id="errorBox" className="text-center">Error</div>
                     <div className="bg">
                         <Switch>
                             <Route path="/" exact component={(props) => <HomeContainer {...props}

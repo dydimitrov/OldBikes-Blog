@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import LoggedIn from "./loggedIn";
-import NotLoggedIn from "./notLoggedIn";
+import LoggedIn from "./privateHome";
+import NotLoggedIn from "./publicHome";
 
 class HomeContainer extends Component {
     render = () => {

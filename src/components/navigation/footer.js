@@ -4,7 +4,7 @@ import { MDBNavLink } from "mdbreact";
 const Footer = () => {
     return (
         <ModalFooter color="blue" className="font-small pt-4 mt-4">
-            <Container fluid className="text-center text-md-left">
+            <Container fluid className="text-center text-md-left mt-4">
                 <Row>
                     <Col md="6" className="text-center">
                         <h5 className="title">Footer Content</h5>
