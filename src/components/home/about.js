@@ -2,7 +2,7 @@ import React from 'react';
 
 export default () => (
     <div >
-        <h1>Logged in page</h1>
+        <h1>About page</h1>
         <p>
             Share interesting links and discuss great content. It's what's happening now.
         </p>

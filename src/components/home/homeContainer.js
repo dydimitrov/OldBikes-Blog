@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import {Route} from "react-router-dom";
-import loggedIn from "./loggedIn";
-import notLoggedIn from "./notLoggedIn";
-import NavBar from "../navigation/navBar";
+import LoggedIn from "./loggedIn";
+import NotLoggedIn from "./notLoggedIn";
 
 class HomeContainer extends Component {
     render = () => {
+        const {isLoggedIn} = this.props;
+        let page
+        if (isLoggedIn) {
+            page = <LoggedIn/>
+        } else {
+            page = <NotLoggedIn/>
+        }
         return (
-            <section id="viewSignIn">
-                <div className="welcome">
-                    <div>
-                        <h1>Hello from home page</h1>
-                    </div>
-                </div>
-            </section>
+            <>
+                {page}
+            </>
         )
     }
 }
