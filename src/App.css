@@ -1,5 +1,4 @@
 body {
-    background-image: url("assets/images/motors.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -8,6 +7,7 @@ body {
 
 .bg {
     height: 100vh;
+    background-image: url("assets/images/motors.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -32,6 +32,27 @@ body {
     text-align: center;
     opacity: 0.7;
     border-radius: 50px;
+}
+.navbar-nav {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+.navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
 }
 /*#loadingBox {
     width: 100%;

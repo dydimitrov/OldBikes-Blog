@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import './assets/css/bootstrap.min.css'
 import About from './components/home/about'
 import ErrorPage from './error-page'
 import Footer from './components/navigation/footer'
@@ -9,6 +10,7 @@ import Logout from './components/user/logout'
 import NavBar from './components/navigation/navBar'
 import HomeContainer from './components/home/homeContainer';
 import PostCreate from './components/post/create'
+import PostSingle from './components/post/postSingle'
 import Register from './components/user/register'
 import {Switch, BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import {MDBContainer} from "mdbreact"
@@ -27,18 +29,13 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <link
-                    rel='stylesheet'
-                    href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'
-                />
-                <MDBContainer flex="true">
-                    <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
+                <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
+                <MDBContainer flex="true" className="bg">
                     <div id="infoBox" className="text-center">Info</div>
                     <div id="errorBox" className="text-center">Error</div>
-                    <div className="bg">
                         <Switch>
-                            <Route path="/" exact component={(props) => <HomeContainer {...props}
-                                                                                       isLoggedIn={this.state.isLoggedIn}/>}/>
+                            <Route path="/" exact
+                                   component={(props) => <HomeContainer {...props} isLoggedIn={this.state.isLoggedIn}/>}/>
                             <Route path="/about" exact component={About}/>
                             <Route path="/login" exact
                                    component={(props) => <Login {...props} onsubmit={this.login}/>}/>
@@ -48,11 +45,12 @@ class App extends Component {
                                    component={(props) => <Register {...props} onsubmit={this.register}/>}/>
                             <Route path="/post/create" exact
                                    component={(props) => <PostCreate {...props} onsubmit={this.createPost}/>}/>
+                            <Route path="/post/single" exact
+                                   component={(props) => <PostSingle {...props}/>}/>
                             <Route component={ErrorPage}/>
                         </Switch>
-                    </div>
-                    <Footer/>
                 </MDBContainer>
+                <Footer/>
             </Router>
         );
     }
@@ -69,6 +67,18 @@ class App extends Component {
         $("#infoBox, #errorBox").hide();
 
         $(document).ajaxError(this.handleAjaxError.bind(this));
+
+        this.checkIsLoggedIn();
+    }
+
+    checkIsLoggedIn = () =>{
+        let token = sessionStorage.getItem('authToken');
+        let userId = sessionStorage.getItem('userId');
+        let userInfo = sessionStorage.getItem('username');
+
+        if (token && userId && userInfo){
+            this.setState({isLoggedIn:true})
+        }
     }
 
     handleAjaxError = (event, response) => {

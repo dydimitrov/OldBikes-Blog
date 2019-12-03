@@ -25,8 +25,8 @@ class NavbarPage extends Component {
         let username = this.props.username;
         let isLoggedIn = username == null ? false : true;
         return (
-            <MDBNavbar className="navbar-nav " expand="md">
-                <MDBNavbarBrand>
+            <MDBNavbar className="navbar-nav black" expand="md">
+                <MDBNavbarBrand className='ml-5'>
                     <strong className="dark-grey-text">OldBike`s Blog</strong>
                 </MDBNavbarBrand>
                 <MDBNavbarToggler onClick={this.toggleCollapse}/>
@@ -38,21 +38,6 @@ class NavbarPage extends Component {
                         <MDBNavItem>
                             <MDBNavLink to="/about">About</MDBNavLink>
                         </MDBNavItem>
-                        {
-                            isLoggedIn ? (
-                                <MDBNavItem>
-                                    < MDBNavLink to="/logout">Logout</MDBNavLink>
-                                </MDBNavItem>
-                            ) : (<>
-                                    <MDBNavItem>
-                                        <MDBNavLink to="/login">Login</MDBNavLink>
-                                    </MDBNavItem>
-                                    <MDBNavItem>
-                                        <MDBNavLink to="/register">Register</MDBNavLink>
-                                    </MDBNavItem>
-                                </>
-                            )
-                        }
                         <MDBNavItem>
                             <MDBDropdown>
                                 <MDBDropdownToggle nav caret>
@@ -73,6 +58,21 @@ class NavbarPage extends Component {
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                         </MDBNavItem>
+                        {
+                            isLoggedIn ? (
+                                <MDBNavItem>
+                                    < MDBNavLink to="/logout">Logout</MDBNavLink>
+                                </MDBNavItem>
+                            ) : (<>
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/login">Login</MDBNavLink>
+                                    </MDBNavItem>
+                                    <MDBNavItem>
+                                        <MDBNavLink to="/register">Register</MDBNavLink>
+                                    </MDBNavItem>
+                                </>
+                            )
+                        }
                     </MDBNavbarNav>
                 </MDBCollapse>
             </MDBNavbar>

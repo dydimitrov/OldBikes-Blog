@@ -29,7 +29,6 @@ class Register extends Component {
 
     render() {
         return (
-            <>
                 <MDBContainer className="card-text text-center">
                     <MDBRow className="mt-3" center middle>
                         <MDBCol md="6">
@@ -68,7 +67,6 @@ class Register extends Component {
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
-            </>
         )
     }
 }

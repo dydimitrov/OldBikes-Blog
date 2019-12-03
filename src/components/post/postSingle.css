@@ -1,0 +1,15 @@
+.post-single {
+    position: relative;
+    z-index: 1;
+    /*background-color: #17a2b8;*/
+    background-color: #818182;
+}
+.text-center .btn{
+    margin-bottom: 8pt;
+}
+.btn-box a{
+    margin: 5pt;
+}
+.quickRepley{
+    margin: 5pt;
+}
