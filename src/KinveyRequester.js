@@ -64,6 +64,14 @@ const KinveyRequester = (function() {
             headers: getKinveyUserAuthHeaders()
         });
     }
+
+    function deletePost(postId) {
+        return $.ajax({
+            method: "DELETE",
+            url: baseUrl + "appdata/" + appKey + "/posts/" + postId,
+            headers: getKinveyUserAuthHeaders()
+        });
+    }
     /*
 
 
@@ -75,18 +83,9 @@ const KinveyRequester = (function() {
                 data: { title, author, description }
             });
         }
-
-        function deleteBook(bookId) {
-            return $.ajax({
-                method: "DELETE",
-                url: baseUrl + "appdata/" + appKey + "/books/" + bookId,
-                headers: getKinveyUserAuthHeaders()
-            });
-        }
-        findAllBooks, createBook, findBookById, editBook, deleteBook
         */
     return {
-        loginUser, registerUser, logoutUser,createPost,findAllPosts,findPostById
+        loginUser, registerUser, logoutUser,createPost,findAllPosts,findPostById,deletePost
 
     }
 })();

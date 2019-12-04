@@ -7,7 +7,7 @@ class HomeContainer extends Component {
         const {isLoggedIn} = this.props;
         let page
         if (isLoggedIn) {
-            page = <LoggedIn/>
+            page = <LoggedIn userId={this.props.userId}/>
         } else {
             page = <NotLoggedIn/>
         }

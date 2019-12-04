@@ -18,8 +18,6 @@ class PostCreate extends Component {
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
-        console.log(this.state)
-        debugger
         this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
         this.props.history.push('/')
     };

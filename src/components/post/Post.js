@@ -7,7 +7,7 @@ class Post extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        let currentUser = this.props.currentUser
         let id = this.props._id;
 
         return (

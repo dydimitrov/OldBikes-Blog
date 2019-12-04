@@ -1,8 +1,8 @@
 import React from 'react'
-import './postSingle.css'
+import './singlePost.css'
 import KinveyRequester from "../../KinveyRequester";
 
-class PostSingle extends React.Component {
+class DeletePost extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -40,8 +40,16 @@ class PostSingle extends React.Component {
             });
     }
 
+    submitHandler = event => {
+        event.preventDefault();
+        debugger
+        this.props.onsubmit(this.state.id);
+        this.props.history.push('/')
+    }
+
     render() {
-        const {isLoaded,
+        const {
+            isLoaded,
             id,
             firstName,
             lastName,
@@ -50,36 +58,34 @@ class PostSingle extends React.Component {
             description,
             creatorId,
             date,
-            title} = this.state;
+            title
+        } = this.state;
 
         if (!isLoaded) {
             return <div>Loading ...</div>
         } else {
             return (
-                <div className="post-single">
-                    <div className="card-header font-weight-bold">
-                        <span>{title}</span>
-                    </div>
-                    <div className="card-body">
-                        <div className="media d-block d-md-flex mt-3">
-                            <img className="d-flex mb-3 mx-auto z-depth-1"
-                                 src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg"
-                                 alt="Generic placeholder"/>
-                            <div className="media-body text-center text-md-left ml-md-3 ml-0">
-                                <h5 className="mt-0 font-weight-bold">{firstName} {lastName}</h5>
-                                {description}
+                <form onSubmit={this.props.submitForm}>
+                    <div className="post-single">
+                        <div className="card-header font-weight-bold">
+                            <span>{title}</span>
+                        </div>
+                        <div className="card-body">
+                            <div className="media d-block d-md-flex mt-3">
+                                <div className="media-body text-center text-md-left ml-md-3 ml-0">
+                                    <h5 className="mt-0 font-weight-bold">{firstName} {lastName}</h5>
+                                    {description}
+                                </div>
                             </div>
                         </div>
+                        <div className="text-center">
+                           <btn className='btn btn-danger' onClick={this.submitHandler}>Confirm Delete</btn>
+                        </div>
                     </div>
-                    <div className="text-center btn-box">
-                        <a className="btn btn-success " href={"/comment/" + id}>Comment</a>
-                        <a className="btn btn-primary" href={"/post/edit/" + id}>Edit</a>
-                        <a className="btn btn-danger" href={"/post/delete/" + id}>Delete</a>
-                    </div>
-                </div>
+                </form>
             )
         }
     }
 }
 
-export default PostSingle
+export default DeletePost
