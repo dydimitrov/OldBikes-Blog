@@ -16,7 +16,7 @@ class Post extends React.Component {
                     <div className="card-body">
                         <h5 className="card-title">{this.props.title}</h5>
                         <p className="card-text">
-                            {this.props.description}
+                            {this.props.description.substring(0,30)}...
                         </p>
                         <p className="card-text">
                             <small className="text-muted">
