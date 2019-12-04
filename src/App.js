@@ -45,7 +45,7 @@ class App extends Component {
                                    component={(props) => <Register {...props} onsubmit={this.register}/>}/>
                             <Route path="/post/create" exact
                                    component={(props) => <PostCreate {...props} onsubmit={this.createPost}/>}/>
-                            <Route path="/post/single" exact
+                            <Route path="/post/single/:id" exact
                                    component={(props) => <PostSingle {...props}/>}/>
                             <Route component={ErrorPage}/>
                         </Switch>
@@ -134,9 +134,9 @@ class App extends Component {
         $('#errorBox').text("Error: " + errorMsg).show();
     }
 
-    createPost = (firstName, lastName, email, category, description) => {
-        console.log(firstName, lastName, email, category, description)
-        KinveyRequester.createPost(firstName, lastName, email, category, description)
+    createPost = (firstName, lastName, email, category, description,title) => {
+        console.log(firstName, lastName, email, category, description,title)
+        KinveyRequester.createPost(firstName, lastName, email, category, description,title)
             .then(createPostSuccess.bind(this));
 
         function createPostSuccess() {

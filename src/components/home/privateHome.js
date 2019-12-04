@@ -39,6 +39,10 @@ class PrivateHome extends React.Component{
         this.getData();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.getData()
+    }
+
     render() {
         return(
             <div>
@@ -46,7 +50,7 @@ class PrivateHome extends React.Component{
                 <div className="container mt-4">
                     <div className="card-columns">
                 {this.state.pageOfItems !== '' ? this.state.pageOfItems.map(post => (
-                            <Post {...post} />
+                            <Post {...post} key={post._id} />
                 )) : (<div id="loadingBox" className="spinner-border text-info" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>)}
