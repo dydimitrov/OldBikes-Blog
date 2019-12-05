@@ -16,6 +16,7 @@ import Register from './components/user/register'
 import {Switch, BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import {MDBContainer} from "mdbreact"
 import $ from 'jquery'
+import EditPost from "./components/post/editPost";
 
 class App extends Component {
     constructor(props) {
@@ -23,7 +24,9 @@ class App extends Component {
         this.state = {
             username: sessionStorage.getItem("username"),
             userId: sessionStorage.getItem("userId"),
-            isLoggedIn: false
+            isLoggedIn: false,
+            firtstName: '',
+            lastName: ''
         };
     }
 
@@ -36,7 +39,8 @@ class App extends Component {
                     <div id="errorBox" className="text-center">Error</div>
                     <Switch>
                         <Route path="/" exact
-                               component={(props) => <HomeContainer {...props} userId={this.state.userId} isLoggedIn={this.state.isLoggedIn}/>}/>
+                               component={(props) => <HomeContainer {...props} userId={this.state.userId}
+                                                                    isLoggedIn={this.state.isLoggedIn}/>}/>
                         <Route path="/about" exact component={About}/>
                         <Route path="/login" exact
                                component={(props) => <Login {...props} onsubmit={this.login}/>}/>
@@ -45,9 +49,16 @@ class App extends Component {
                         <Route path="/register" exact
                                component={(props) => <Register {...props} onsubmit={this.register}/>}/>
                         <Route path="/post/create" exact
-                               component={(props) => <PostCreate {...props} onsubmit={this.createPost}/>}/>
+                               component={(props) => <PostCreate {...props}
+                                                                 onsubmit={this.createPost}
+                                                                 firstName={this.state.firstName}
+                                                                 lastName={this.state.lastName}/>}/>
                         <Route path="/post/single/:id" exact
                                component={(props) => <SinglePost {...props} userId={this.state.userId}/>}/>
+                        <Route path="/post/edit/:id" exact
+                               component={(props) => <EditPost {...props} onsubmit={this.postEdit}
+                                                               firstName={this.state.firstName}
+                                                               lastName={this.state.lastName}/>}/>
                         <Route path="/post/delete/:id" exact
                                component={(props) => <DeletePost {...props} onsubmit={this.deletePost}/>}/>
                         <Route component={ErrorPage}/>
@@ -107,7 +118,7 @@ class App extends Component {
     logout = () => {
         KinveyRequester.logoutUser();
         sessionStorage.clear();
-        this.setState({username: null, userId: null, isLoggedIn: false, firstName: null, lastName:null});
+        this.setState({username: null, userId: null, isLoggedIn: false, firstName: null, lastName: null});
     }
 
     register = (username, password, firstName, lastName) => {
@@ -164,6 +175,15 @@ class App extends Component {
 
         function deletePostSuccess() {
             this.showInfo("Post deleted succesfully.");
+        }
+    }
+
+    postEdit = (postId, firstName, lastName, email, category, description, title) => {
+        KinveyRequester.editPost(postId, firstName, lastName, email, category, description, title)
+            .then(editPostSuccess.bind(this));
+
+        function editPostSuccess() {
+            this.showInfo("Post edited.");
         }
     }
 }

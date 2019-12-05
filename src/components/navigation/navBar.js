@@ -39,24 +39,13 @@ class NavbarPage extends Component {
                             <MDBNavLink to="/about">About</MDBNavLink>
                         </MDBNavItem>
                         <MDBNavItem>
-                            <MDBDropdown>
-                                <MDBDropdownToggle nav caret>
-                                    <span className="mr-2">Post</span>
-                                </MDBDropdownToggle>
-                                <MDBDropdownMenu>
-                                    {
-                                        isLoggedIn ? (
-                                            <>
-                                                <MDBNavLink to="/post/create">Create</MDBNavLink>
-                                                <MDBNavLink to="/post/all"> All posts</MDBNavLink>
-                                            </>
-                                        ):(
-                                            <MDBNavLink to="/post/all"> All posts</MDBNavLink>
-                                        )
-                                    }
-
-                                </MDBDropdownMenu>
-                            </MDBDropdown>
+                            {
+                                isLoggedIn ? (
+                                    <>
+                                        <MDBNavLink to="/post/create">Create Post</MDBNavLink>
+                                    </>
+                                ):""
+                            }
                         </MDBNavItem>
                         {
                             isLoggedIn ? (

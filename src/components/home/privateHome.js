@@ -43,7 +43,7 @@ class PrivateHome extends React.Component{
     render() {
         return(
             <div>
-                <h2>All Posts</h2>
+                <h2 className="text-center">Here you can find the newest posts in our system. Enjoy!</h2>
                 <div className="container mt-4">
                     <div className="card-columns">
                 {this.state.pageOfItems !== '' ? this.state.pageOfItems.map(post => (

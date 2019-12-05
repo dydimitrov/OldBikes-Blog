@@ -42,7 +42,8 @@ class SinglePost extends React.Component {
     }
 
     render() {
-        const {isLoaded,
+        const {
+            isLoaded,
             id,
             firstName,
             lastName,
@@ -51,19 +52,20 @@ class SinglePost extends React.Component {
             description,
             creatorId,
             date,
-            title} = this.state;
-            let isAuthor = creatorId === this.props.userId
+            title
+        } = this.state;
+        let isAuthor = creatorId === this.props.userId
         if (!isLoaded) {
             return <div>Loading ...</div>
         } else {
             return (
-                <div className="post-single" >
+                <div className="post-single">
                     <div className="card-header font-weight-bold">
                         <span>{title}</span>
                     </div>
                     <div className="card-body">
                         <div className="media d-block d-md-flex mt-3">
-                            <p><ReactAvatar round name={firstName +" " + lastName}/></p>
+                            <p><ReactAvatar round name={firstName + " " + lastName}/></p>
                             <div className="media-body text-center text-md-left ml-md-3 ml-0">
                                 <h5 className="mt-0 font-weight-bold">{firstName} {lastName}</h5>
                                 {description}
@@ -71,12 +73,11 @@ class SinglePost extends React.Component {
                         </div>
                     </div>
                     <div className="text-center btn-box">
-                        <a className="btn btn-success " href={"/comment/" + id}>Comment</a>
                         {
                             isAuthor ? (
                                 <>
                                     <a className="btn btn-primary" href={"/post/edit/" + id}>Edit</a>
-                                <a className="btn btn-danger" href={"/post/delete/" + id}>Delete</a>
+                                    <a className="btn btn-danger" href={"/post/delete/" + id}>Delete</a>
                                 </>) : ''
                         }
                     </div>

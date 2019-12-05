@@ -1,24 +1,48 @@
 import React,{Component} from "react";
 import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import KinveyRequester from "../../KinveyRequester";
 
-class PostCreate extends Component {
-    constructor(props){
+class EditPost extends Component {
+    constructor(props) {
         super(props)
-
         this.state = {
-            title:"",
-            firstName: this.props.firstName,
-            lastName: this.props.lastName,
-            email: "",
-            category: "",
-            description: ""
-        };
+            id: '',
+            firstName: '',
+            lastName: '',
+            email: '',
+            category: '',
+            description: '',
+            creatorId: '',
+            date: '',
+            title: ''
+        }
+    }
+
+    componentDidMount() {
+        this.getData()
+    }
+
+    getData() {
+        let id = this.props.match.params.id
+        KinveyRequester.findPostById(id)
+            .then(post => {
+                this.setState({isLoaded: true})
+                this.setState({id: post._id})
+                this.setState({firstName: post.firstName})
+                this.setState({lastName: post.lastName})
+                this.setState({email: post.email})
+                this.setState({category: post.category})
+                this.setState({description: post.description})
+                this.setState({title: post.title})
+                this.setState({creatorId: post._acl.creator})
+                this.setState({date: post._kmd.lmt})
+            });
     }
 
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
-        this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
+        this.props.onsubmit(this.state.id,this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
         this.props.history.push('/')
     };
 
@@ -48,7 +72,7 @@ class PostCreate extends Component {
                     noValidate
                 >
                     <MDBRow center className="mt-2">
-                        <h2>Create Post</h2>
+                        <h2>Edit Post</h2>
                     </MDBRow>
                     <MDBRow>
                         <MDBCol md="6" className="mb-3">
@@ -125,15 +149,14 @@ class PostCreate extends Component {
                                 Description
                             </label>
                             <textarea
-                                value={this.state.state}
                                 onChange={this.changeHandlerDescription}
                                 type="text"
                                 id="description"
                                 className="form-control"
                                 name="description"
-                                placeholder="Description..."
+                                value={this.state.description}
                                 required
-                            />
+                            ></textarea>
                             <div className="invalid-feedback">
                                 Your post must be at least 50 symbols.
                             </div>
@@ -142,7 +165,7 @@ class PostCreate extends Component {
                     </MDBRow>
                     <MDBRow center>
                         <MDBBtn color="primary" type="submit">
-                            Submit post
+                            Save post
                         </MDBBtn>
                     </MDBRow>
                 </form>
@@ -151,4 +174,4 @@ class PostCreate extends Component {
     }
 }
 
-export default PostCreate;
+export default EditPost;
