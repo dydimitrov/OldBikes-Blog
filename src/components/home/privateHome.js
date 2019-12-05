@@ -39,9 +39,6 @@ class PrivateHome extends React.Component{
         this.getData();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.getData()
-    }
 
     render() {
         return(

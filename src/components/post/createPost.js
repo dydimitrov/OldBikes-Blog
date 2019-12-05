@@ -7,8 +7,8 @@ class PostCreate extends Component {
 
         this.state = {
             title:"",
-            firstName: "",
-            lastName: "",
+            firstName: sessionStorage.getItem('firstName'),
+            lastName: sessionStorage.getItem('lastName'),
             email: "",
             category: "",
             description: ""
@@ -22,17 +22,9 @@ class PostCreate extends Component {
         this.props.history.push('/')
     };
 
-    changeHandlerFirstName = event => {
-        event.preventDefault();
-        this.setState({firstName : event.target.value})
-    };
     changeHandlerTitle = event => {
         event.preventDefault();
         this.setState({title : event.target.value})
-    };
-    changeHandlerLastName = event => {
-        event.preventDefault();
-        this.setState({lastName : event.target.value})
     };
     changeHandlerEmail = event => {
         event.preventDefault();

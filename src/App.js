@@ -107,11 +107,11 @@ class App extends Component {
     logout = () => {
         KinveyRequester.logoutUser();
         sessionStorage.clear();
-        this.setState({username: null, userId: null, isLoggedIn: false});
+        this.setState({username: null, userId: null, isLoggedIn: false, firstName: null, lastName:null});
     }
 
-    register = (username, password) => {
-        KinveyRequester.registerUser(username, password)
+    register = (username, password, firstName, lastName) => {
+        KinveyRequester.registerUser(username, password, firstName, lastName)
             .then(registerSuccess.bind(this));
 
         function registerSuccess(userInfo) {
@@ -128,7 +128,9 @@ class App extends Component {
 
         this.setState({
             username: userInfo.username,
-            userId: userInfo._id
+            userId: userInfo._id,
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
         });
     }
 
@@ -141,6 +143,9 @@ class App extends Component {
 
     showError = (errorMsg) => {
         $('#errorBox').text("Error: " + errorMsg).show();
+        setTimeout(function () {
+            $('#errorBox').fadeOut();
+        }, 1500);
     }
 
     createPost = (firstName, lastName, email, category, description, title) => {

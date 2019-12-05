@@ -17,12 +17,12 @@ const KinveyRequester = (function() {
         });
     }
 
-    function registerUser(username, password) {
+    function registerUser(username, password, firstName, lastName) {
         return $.ajax({
             method: "POST",
             url: baseUrl + "user/" + appKey + "/",
             headers: kinveyAppAuthHeaders,
-            data: { username, password }
+            data: { username, password, firstName, lastName }
         });
     }
 

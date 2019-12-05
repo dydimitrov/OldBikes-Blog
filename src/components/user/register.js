@@ -8,7 +8,9 @@ class Register extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            firstName: '',
+            lastName: '',
         }
     }
 
@@ -20,10 +22,18 @@ class Register extends Component {
         event.preventDefault();
         this.setState({password: event.target.value})
     }
+    handleChangeFirstName = (event) => {
+        event.preventDefault();
+        this.setState({firstName: event.target.value})
+    }
+    handleChangeLastName = (event) => {
+        event.preventDefault();
+        this.setState({lastName: event.target.value})
+    }
     handleSubmit = async (event) => {
         event.preventDefault();
         await this.props.onsubmit(
-            this.state.username, this.state.password);
+            this.state.username, this.state.password, this.state.firstName,this.state.lastName);
         this.props.history.push('/')
     }
 
@@ -54,6 +64,20 @@ class Register extends Component {
                                                 type="password"
                                                 validate
                                                 onChange={this.handleChangePassword}
+                                            />
+                                            <MDBInput
+                                                label="First Name"
+                                                group
+                                                type="text"
+                                                validate
+                                                onChange={this.handleChangeFirstName}
+                                            />
+                                            <MDBInput
+                                                label="Last Name"
+                                                group
+                                                type="text"
+                                                validate
+                                                onChange={this.handleChangeLastName}
                                             />
                                         </div>
                                         <div className="text-center py-4 mt-3">

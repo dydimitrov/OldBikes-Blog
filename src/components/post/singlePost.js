@@ -1,6 +1,7 @@
 import React from 'react'
 import './singlePost.css'
 import KinveyRequester from "../../KinveyRequester";
+import ReactAvatar from "react-avatar";
 
 class SinglePost extends React.Component {
     constructor(props) {
@@ -56,15 +57,13 @@ class SinglePost extends React.Component {
             return <div>Loading ...</div>
         } else {
             return (
-                <div className="post-single">
+                <div className="post-single" >
                     <div className="card-header font-weight-bold">
                         <span>{title}</span>
                     </div>
                     <div className="card-body">
                         <div className="media d-block d-md-flex mt-3">
-                            <img className="d-flex mb-3 mx-auto z-depth-1"
-                                 src="https://mdbootstrap.com/img/Photos/Avatars/img (30).jpg"
-                                 alt="Generic placeholder"/>
+                            <p><ReactAvatar round name={firstName +" " + lastName}/></p>
                             <div className="media-body text-center text-md-left ml-md-3 ml-0">
                                 <h5 className="mt-0 font-weight-bold">{firstName} {lastName}</h5>
                                 {description}
