@@ -45,8 +45,8 @@ class Register extends Component {
                             <MDBCard>
                                 <MDBCardBody>
                                     <form onSubmit={this.handleSubmit}>
-                                        <h2 className="text-center">Register</h2>
-                                        <div className="grey-text">
+                                        <h2 className="text-center text-dark">Register</h2>
+                                        <div className="text-dark">
                                             <MDBInput
                                                 label="Your username"
                                                 icon="user"

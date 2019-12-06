@@ -25,10 +25,10 @@ class Register extends Component {
                             <MDBCard>
                                 <MDBCardBody>
                                     <form onSubmit={this.handleSubmit}>
-                                        <p className="h2 text-center py-4">Login</p>
+                                        <p className="h2 text-center py-4 text-dark">Login</p>
                                         <label
                                             htmlFor="defaultFormCardNameEx"
-                                            className="grey-text font-weight-light"
+                                            className="text-dark"
                                         >
                                             Your username
                                         </label>
@@ -41,7 +41,7 @@ class Register extends Component {
                                         <br />
                                         <label
                                             htmlFor="defaultFormCardEmailEx"
-                                            className="grey-text font-weight-light"
+                                            className="text-dark"
                                         >
                                             Your password
                                         </label>
@@ -54,7 +54,6 @@ class Register extends Component {
                                         <div className="text-center py-4 mt-3">
                                             <MDBBtn className="btn-success" type="submit">
                                                 Login
-                                                <MDBIcon far icon="paper-plane" className="ml-2" />
                                             </MDBBtn>
                                         </div>
                                     </form>

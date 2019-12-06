@@ -20,8 +20,8 @@ class Post extends React.Component {
                         </p>
                         <p className="card-text">
                             <small className="text-muted">
-                                <i className="far fa-user"></i>{this.props._acl.creator}
-                                <i className="fas fa-calendar-alt">{this.props._kmd.lmt}</i>
+                                <i className="far fa-user"></i>{this.props.firstName} {this.props.lastName}
+                                <i className="fas fa-calendar-alt">{this.props._kmd.ect.substring(0,10)}</i>
                             </small>
                         </p>
                     </div>

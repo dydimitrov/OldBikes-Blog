@@ -32,40 +32,46 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
-                <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
-                <MDBContainer flex="true" className="bg">
-                    <div id="infoBox" className="text-center">Info</div>
-                    <div id="errorBox" className="text-center">Error</div>
-                    <Switch>
-                        <Route path="/" exact
-                               component={(props) => <HomeContainer {...props} userId={this.state.userId}
-                                                                    isLoggedIn={this.state.isLoggedIn}/>}/>
-                        <Route path="/about" exact component={About}/>
-                        <Route path="/login" exact
-                               component={(props) => <Login {...props} onsubmit={this.login}/>}/>
-                        <Route path="/logout" exact
-                               component={(props) => <Logout {...props} logout={this.logout}/>}/>
-                        <Route path="/register" exact
-                               component={(props) => <Register {...props} onsubmit={this.register}/>}/>
-                        <Route path="/post/create" exact
-                               component={(props) => <PostCreate {...props}
-                                                                 onsubmit={this.createPost}
-                                                                 firstName={this.state.firstName}
-                                                                 lastName={this.state.lastName}/>}/>
-                        <Route path="/post/single/:id" exact
-                               component={(props) => <SinglePost {...props} userId={this.state.userId}/>}/>
-                        <Route path="/post/edit/:id" exact
-                               component={(props) => <EditPost {...props} onsubmit={this.postEdit}
-                                                               firstName={this.state.firstName}
-                                                               lastName={this.state.lastName}/>}/>
-                        <Route path="/post/delete/:id" exact
-                               component={(props) => <DeletePost {...props} onsubmit={this.deletePost}/>}/>
-                        <Route component={ErrorPage}/>
-                    </Switch>
-                </MDBContainer>
-                <Footer/>
-            </Router>
+            <>
+                <Router>
+                    <header>
+                        <NavBar username={this.state.username} isLoggedIn={this.state.isLoggedIn}/>
+                    </header>
+                    <MDBContainer className="body text-white">
+                        <div id="infoBox" className="text-center">Info</div>
+                        <div id="errorBox" className="text-center">Error</div>
+                        <Switch>
+                            <Route path="/" exact
+                                   component={(props) => <HomeContainer {...props} userId={this.state.userId}
+                                                                        isLoggedIn={this.state.isLoggedIn}/>}/>
+                            <Route path="/about" exact component={About}/>
+                            <Route path="/login" exact
+                                   component={(props) => <Login {...props} onsubmit={this.login}/>}/>
+                            <Route path="/logout" exact
+                                   component={(props) => <Logout {...props} logout={this.logout}/>}/>
+                            <Route path="/register" exact
+                                   component={(props) => <Register {...props} onsubmit={this.register}/>}/>
+                            <Route path="/post/create" exact
+                                   component={(props) => <PostCreate {...props}
+                                                                     onsubmit={this.createPost}
+                                                                     firstName={this.state.firstName}
+                                                                     lastName={this.state.lastName}/>}/>
+                            <Route path="/post/single/:id" exact
+                                   component={(props) => <SinglePost {...props} userId={this.state.userId}/>}/>
+                            <Route path="/post/edit/:id" exact
+                                   component={(props) => <EditPost {...props} onsubmit={this.postEdit}
+                                                                   firstName={this.state.firstName}
+                                                                   lastName={this.state.lastName}/>}/>
+                            <Route path="/post/delete/:id" exact
+                                   component={(props) => <DeletePost {...props} onsubmit={this.deletePost}/>}/>
+                            <Route component={ErrorPage}/>
+                        </Switch>
+                    </MDBContainer>
+                    <footer>
+                        <Footer/>
+                    </footer>
+                </Router>
+            </>
         );
     }
 

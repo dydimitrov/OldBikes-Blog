@@ -5,12 +5,9 @@ import {
     MDBNavbarNav,
     MDBNavItem,
     MDBNavLink,
-    MDBNavbarToggler,
     MDBCollapse,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
 } from "mdbreact";
+
 
 class NavbarPage extends Component {
     state = {
@@ -25,11 +22,12 @@ class NavbarPage extends Component {
         let username = this.props.username;
         let isLoggedIn = username == null ? false : true;
         return (
-            <MDBNavbar className="navbar-nav black" expand="md">
-                <MDBNavbarBrand className='ml-5'>
+            <MDBNavbar className="navbar-nav light" expand="md">
+                <MDBNavbarBrand className='ml-5 text-light'>
                     <strong className="dark-grey-text">OldBike`s Blog</strong>
                 </MDBNavbarBrand>
-                <MDBNavbarToggler onClick={this.toggleCollapse}/>
+                <button className="navbar-toggler" type="button" onClick={this.toggleCollapse}><span className="dark-blue-text"><i
+                    className="fa fa-bars fa-1x"></i></span></button>
                 <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                     <MDBNavbarNav right>
                         <MDBNavItem active>
