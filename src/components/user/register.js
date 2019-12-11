@@ -11,6 +11,7 @@ class Register extends Component {
             password: '',
             firstName: '',
             lastName: '',
+            error:false
         }
     }
 
@@ -32,65 +33,76 @@ class Register extends Component {
     }
     handleSubmit = async (event) => {
         event.preventDefault();
-        await this.props.onsubmit(
-            this.state.username, this.state.password, this.state.firstName,this.state.lastName);
-        this.props.history.push('/')
+        let isUsernameValid = this.state.username.length > 6
+        let isPasswordValid = this.state.password.length > 6
+        let isFirstNameValid = this.state.firstName.length !== 0 && this.state.firstName.length > 3
+        let isLastNameValid = this.state.lastName.length !== 0 && this.state.lastName.length > 3
+
+        if (isFirstNameValid && isLastNameValid && isPasswordValid && isUsernameValid) {
+            await this.props.onsubmit(
+                this.state.username, this.state.password, this.state.firstName, this.state.lastName)
+                this.props.history.push('/')
+
+        } else {
+            this.props.showError("There is some wrong with your credentials.Please fill data again!")
+            return
+        }
     }
 
     render() {
         return (
-                <MDBContainer className="card-text text-center">
-                    <MDBRow className="mt-3" center middle>
-                        <MDBCol md="6">
-                            <MDBCard>
-                                <MDBCardBody>
-                                    <form onSubmit={this.handleSubmit}>
-                                        <h2 className="text-center text-dark">Register</h2>
-                                        <div className="text-dark">
-                                            <MDBInput
-                                                label="Your username"
-                                                icon="user"
-                                                group
-                                                type="text"
-                                                validate
-                                                error="wrong"
-                                                success="right"
-                                                onChange={this.handleChangeUsername}
-                                            />
-                                            <MDBInput
-                                                label="Your password"
-                                                icon="lock"
-                                                group
-                                                type="password"
-                                                validate
-                                                onChange={this.handleChangePassword}
-                                            />
-                                            <MDBInput
-                                                label="First Name"
-                                                group
-                                                type="text"
-                                                validate
-                                                onChange={this.handleChangeFirstName}
-                                            />
-                                            <MDBInput
-                                                label="Last Name"
-                                                group
-                                                type="text"
-                                                validate
-                                                onChange={this.handleChangeLastName}
-                                            />
-                                        </div>
-                                        <div className="text-center py-4 mt-3">
-                                            <MDBBtn className="btn-success" type="submit">
-                                                Register
-                                            </MDBBtn>
-                                        </div>
-                                    </form>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
+            <MDBContainer className="card-text text-center">
+                <MDBRow className="mt-3" center middle>
+                    <MDBCol md="6">
+                        <MDBCard>
+                            <MDBCardBody>
+                                <form onSubmit={this.handleSubmit}>
+                                    <h2 className="text-center text-dark">Register</h2>
+                                    <div className="text-dark">
+                                        <MDBInput
+                                            label="Your username"
+                                            icon="user"
+                                            group
+                                            type="text"
+                                            validate
+                                            error="wrong"
+                                            success="right"
+                                            onChange={this.handleChangeUsername}
+                                        />
+                                        <MDBInput
+                                            label="Your password"
+                                            icon="lock"
+                                            group
+                                            type="password"
+                                            validate
+                                            onChange={this.handleChangePassword}
+                                        />
+                                        <MDBInput
+                                            label="First Name"
+                                            group
+                                            type="text"
+                                            validate
+                                            onChange={this.handleChangeFirstName}
+                                        />
+                                        <MDBInput
+                                            label="Last Name"
+                                            group
+                                            type="text"
+                                            validate
+                                            onChange={this.handleChangeLastName}
+                                        />
+                                    </div>
+                                    <div className="text-center py-4 mt-3">
+                                        <MDBBtn className="btn-success" type="submit">
+                                            Register
+                                        </MDBBtn>
+                                    </div>
+                                </form>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
         )
     }
 }

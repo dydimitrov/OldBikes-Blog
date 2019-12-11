@@ -83,6 +83,7 @@ class SinglePost extends React.Component {
                                     <a className="btn btn-danger" href={"/post/delete/" + id}>Delete</a>
                                 </>) : ''
                         }
+                        <a className="btn btn-info" href={"/"}>Back Home</a>
                     </div>
                 </div>
             )

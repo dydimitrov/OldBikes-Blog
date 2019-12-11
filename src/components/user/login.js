@@ -6,14 +6,33 @@ class Register extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {value: ''}
+        this.state = {
+            username: '',
+            password:''
+        }
+    }
+
+    handleChangeUsername = (event) => {
+        event.preventDefault();
+        this.setState({username: event.target.value})
+    }
+
+    handleChangePassword = (event) => {
+        event.preventDefault();
+        this.setState({password: event.target.value})
     }
 
     handleSubmit =  async(event) =>{
         event.preventDefault();
-        await this.props.onsubmit(
-            this.usernameField.value, this.passwordField.value);
-        this.props.history.push('/')
+        if (this.state.username.length !== 0 && this.state.password.length !== 0){
+            await this.props.onsubmit(
+                this.state.username, this.state.password)
+                this.props.history.push('/')
+
+        }else{
+            this.props.showError("There is some wrong with your credentials.Please fill data again!")
+            return
+        }
     }
 
     render() {
@@ -33,10 +52,11 @@ class Register extends Component {
                                             Your username
                                         </label>
                                         <input
+                                            value={this.state.username}
                                             type="text"
                                             id="defaultFormCardNameEx"
                                             className="form-control"
-                                            ref={e => this.usernameField = e}
+                                            onChange={this.handleChangeUsername}
                                         />
                                         <br />
                                         <label
@@ -46,10 +66,11 @@ class Register extends Component {
                                             Your password
                                         </label>
                                         <input
+                                            value={this.state.password}
                                             type="password"
                                             id="defaultFormCardEmailEx"
                                             className="form-control"
-                                            ref={e => this.passwordField = e}
+                                            onChange={this.handleChangePassword}
                                         />
                                         <div className="text-center py-4 mt-3">
                                             <MDBBtn className="btn-success" type="submit">

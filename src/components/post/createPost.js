@@ -20,9 +20,28 @@ class PostCreate extends Component {
 
     submitHandler = event => {
         event.preventDefault();
-        event.target.className += " was-validated";
-        this.props.onsubmit(this.state.firstName, this.state.lastName, this.state.email, this.state.category, this.state.description, this.state.title, this.state.image)
-        this.props.history.push('/')
+        let isTitleValid = this.state.title.length !== 0
+        let isFirstNameValid = this.state.firstName.length !== 0
+        let isLastNameValid = this.state.lastName.length !== 0
+        let isEmailValid = this.state.email.length !== 0
+        let isCayegoryValid = this.state.category.length !== 0
+        let isDescriptionValid = this.state.description.length !== 0
+
+        if(isTitleValid && isFirstNameValid && isLastNameValid && isEmailValid && isCayegoryValid && isDescriptionValid){
+            this.props.onsubmit(
+                this.state.firstName,
+                this.state.lastName,
+                this.state.email,
+                this.state.category,
+                this.state.description,
+                this.state.title,
+                this.state.image)
+            this.props.history.push('/')
+        }else{
+            this.props.showError("All fields must have at least one symbol.")
+            return
+        }
+
     };
 
     changeHandlerTitle = event => {

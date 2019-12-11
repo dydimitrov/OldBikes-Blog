@@ -40,28 +40,39 @@ class App extends Component {
                         <div id="errorBox" className="text-center">Error</div>
                         <Switch>
                             <Route path="/" exact
-                                   component={(props) => <HomeContainer {...props} userId={this.state.userId}
+                                   component={(props) => <HomeContainer {...props}
+                                                                        userId={this.state.userId}
                                                                         isLoggedIn={this.state.isLoggedIn}/>}/>
                             <Route path="/about" exact component={About}/>
                             <Route path="/login" exact
-                                   component={(props) => <Login {...props} onsubmit={this.login}/>}/>
+                                   component={(props) => <Login {...props}
+                                                                onsubmit={this.login}
+                                                                showError={this.showError}/>}/>
                             <Route path="/logout" exact
-                                   component={(props) => <Logout {...props} logout={this.logout}/>}/>
+                                   component={(props) => <Logout {...props}
+                                                                 logout={this.logout}/>}/>
                             <Route path="/register" exact
-                                   component={(props) => <Register {...props} onsubmit={this.register}/>}/>
+                                   component={(props) => <Register {...props}
+                                                                   onsubmit={this.register}
+                                                                   showError={this.showError}/>}/>
                             <Route path="/post/create" exact
                                    component={(props) => <PostCreate {...props}
                                                                      onsubmit={this.createPost}
                                                                      firstName={this.state.firstName}
-                                                                     lastName={this.state.lastName}/>}/>
+                                                                     lastName={this.state.lastName}
+                                                                     showError={this.showError}/>}/>
                             <Route path="/post/single/:id" exact
-                                   component={(props) => <SinglePost {...props} userId={this.state.userId}/>}/>
+                                   component={(props) => <SinglePost {...props}
+                                                                     userId={this.state.userId}/>}/>
                             <Route path="/post/edit/:id" exact
-                                   component={(props) => <EditPost {...props} onsubmit={this.postEdit}
+                                   component={(props) => <EditPost {...props}
+                                                                   onsubmit={this.postEdit}
                                                                    firstName={this.state.firstName}
-                                                                   lastName={this.state.lastName}/>}/>
+                                                                   lastName={this.state.lastName}
+                                                                   showError={this.showError}/>}/>
                             <Route path="/post/delete/:id" exact
-                                   component={(props) => <DeletePost {...props} onsubmit={this.deletePost}/>}/>
+                                   component={(props) => <DeletePost {...props}
+                                                                     onsubmit={this.deletePost}/>}/>
                             <Route component={ErrorPage}/>
                         </Switch>
                     </MDBContainer>
@@ -110,12 +121,17 @@ class App extends Component {
 
     login = (username, password) => {
         KinveyRequester.loginUser(username, password)
-            .then(loginSuccess.bind(this));
+            .then(loginSuccess.bind(this))
+            .catch(loginFailed.bind(this))
 
         function loginSuccess(userInfo) {
-            this.saveAuthInSession(userInfo);
-            this.showInfo("Login successful.");
+            this.saveAuthInSession(userInfo)
+            this.showInfo("Login successful.")
             this.setState({isLoggedIn: true})
+        }
+
+        function loginFailed(error) {
+            this.showError("Wrong credentials!")
         }
     }
 
@@ -157,37 +173,49 @@ class App extends Component {
     }
 
     showError = (errorMsg) => {
-        $('#errorBox').text("Error: " + errorMsg).show();
+        $('#errorBox').text(errorMsg).show()
         setTimeout(function () {
-            $('#errorBox').fadeOut();
-        }, 1500);
+            $('#errorBox').fadeOut()
+        }, 1500)
     }
 
     createPost = (firstName, lastName, email, category, description, title, image) => {
-        console.log(firstName, lastName, email, category, description, title, image)
         KinveyRequester.createPost(firstName, lastName, email, category, description, title, image)
-            .then(createPostSuccess.bind(this));
+            .then(createPostSuccess.bind(this))
+            .catch(createPostFailed.bind(this))
 
         function createPostSuccess() {
-            this.showInfo("Post created.");
+            this.showInfo("Post created.")
+        }
+
+        function createPostFailed() {
+            this.showError("Something goes wrong.")
         }
     }
 
     deletePost = (postId) => {
         KinveyRequester.deletePost(postId)
-            .then(deletePostSuccess)
+            .then(deletePostSuccess.bind(this))
+            .catch(deletePostFailed.bind(this))
 
         function deletePostSuccess() {
-            this.showInfo("Post deleted succesfully.");
+            this.showInfo("Post deleted succesfully.")
+        }
+        function deletePostFailed() {
+            this.showError("Cant delete this post right now please trye again after few minutes.")
         }
     }
 
-    postEdit = (postId, firstName, lastName, email, category, description, title,image) => {
-        KinveyRequester.editPost(postId, firstName, lastName, email, category, description, title,image)
-            .then(editPostSuccess.bind(this));
+    postEdit = (postId, firstName, lastName, email, category, description, title, image) => {
+        KinveyRequester.editPost(postId, firstName, lastName, email, category, description, title, image)
+            .then(editPostSuccess.bind(this))
+            .catch(editPostFailed.bind(this))
 
         function editPostSuccess() {
-            this.showInfo("Post edited.");
+            this.showInfo("Post edited.")
+        }
+        function editPostFailed() {
+            this.showError("There is a problem with edited post. Please check your modifications.")
         }
     }
 }
