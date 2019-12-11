@@ -7,8 +7,8 @@ class PostCreate extends Component {
 
         this.state = {
             title:"",
-            firstName: this.props.firstName,
-            lastName: this.props.lastName,
+            firstName: "",
+            lastName: "",
             email: "",
             category: "",
             description: ""
@@ -25,6 +25,14 @@ class PostCreate extends Component {
     changeHandlerTitle = event => {
         event.preventDefault();
         this.setState({title : event.target.value})
+    };
+    changeHandlerFirstName = event => {
+        event.preventDefault();
+        this.setState({firstName : event.target.value})
+    };
+    changeHandlerLastName = event => {
+        event.preventDefault();
+        this.setState({lastName : event.target.value})
     };
     changeHandlerEmail = event => {
         event.preventDefault();
@@ -49,6 +57,47 @@ class PostCreate extends Component {
                 >
                     <MDBRow center className="mt-2">
                         <h2>Create Post</h2>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol md="6" className="mb-3">
+                            <label
+                                htmlFor="defaultFormRegisterConfirmEx3"
+                                className="grey-text"
+                            >
+                                First Name
+                            </label>
+                            <input
+                                value={this.state.firstName}
+                                onChange={this.changeHandlerFirstName}
+                                type="email"
+                                id="defaultFormRegisterConfirmEx3"
+                                className="form-control"
+                                name="firstName"
+                                placeholder="First name..."
+                            />
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-3">
+                            <label
+                                htmlFor="lastName"
+                                className="grey-text"
+                            >
+                                Last name
+                            </label>
+                            <input
+                                value={this.state.lastName}
+                                onChange={this.changeHandlerLastName}
+                                type="text"
+                                id="lastName"
+                                className="form-control"
+                                name="lastName"
+                                placeholder="Last name..."
+                                required
+                            />
+                            <div className="invalid-feedback">
+                                Please provide a valid Name.
+                            </div>
+                            <div className="valid-feedback">Looks good!</div>
+                        </MDBCol>
                     </MDBRow>
                     <MDBRow>
                         <MDBCol md="6" className="mb-3">

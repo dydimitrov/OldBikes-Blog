@@ -25,8 +25,6 @@ class App extends Component {
             username: sessionStorage.getItem("username"),
             userId: sessionStorage.getItem("userId"),
             isLoggedIn: false,
-            firtstName: '',
-            lastName: ''
         };
     }
 
