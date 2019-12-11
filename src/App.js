@@ -163,9 +163,9 @@ class App extends Component {
         }, 1500);
     }
 
-    createPost = (firstName, lastName, email, category, description, title) => {
-        console.log(firstName, lastName, email, category, description, title)
-        KinveyRequester.createPost(firstName, lastName, email, category, description, title)
+    createPost = (firstName, lastName, email, category, description, title, image) => {
+        console.log(firstName, lastName, email, category, description, title, image)
+        KinveyRequester.createPost(firstName, lastName, email, category, description, title, image)
             .then(createPostSuccess.bind(this));
 
         function createPostSuccess() {
@@ -182,8 +182,8 @@ class App extends Component {
         }
     }
 
-    postEdit = (postId, firstName, lastName, email, category, description, title) => {
-        KinveyRequester.editPost(postId, firstName, lastName, email, category, description, title)
+    postEdit = (postId, firstName, lastName, email, category, description, title,image) => {
+        KinveyRequester.editPost(postId, firstName, lastName, email, category, description, title,image)
             .then(editPostSuccess.bind(this));
 
         function editPostSuccess() {

@@ -1,51 +1,72 @@
-import React,{Component} from "react";
-import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import React, {Component} from "react";
+import {MDBRow, MDBCol, MDBBtn} from "mdbreact";
+import Button from "reactstrap/es/Button";
 
 class PostCreate extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
-            title:"",
+            title: "",
             firstName: "",
             lastName: "",
             email: "",
             category: "",
-            description: ""
+            description: "",
+            image: ""
         };
     }
+
 
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
-        this.props.onsubmit(this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
+        this.props.onsubmit(this.state.firstName, this.state.lastName, this.state.email, this.state.category, this.state.description, this.state.title, this.state.image)
         this.props.history.push('/')
     };
 
     changeHandlerTitle = event => {
         event.preventDefault();
-        this.setState({title : event.target.value})
+        this.setState({title: event.target.value})
     };
     changeHandlerFirstName = event => {
         event.preventDefault();
-        this.setState({firstName : event.target.value})
+        this.setState({firstName: event.target.value})
     };
     changeHandlerLastName = event => {
         event.preventDefault();
-        this.setState({lastName : event.target.value})
+        this.setState({lastName: event.target.value})
     };
     changeHandlerEmail = event => {
         event.preventDefault();
-        this.setState({email : event.target.value})
+        this.setState({email: event.target.value})
     };
     changeHandlerCategory = event => {
         event.preventDefault();
-        this.setState({category : event.target.value})
+        this.setState({category: event.target.value})
     };
     changeHandlerDescription = event => {
         event.preventDefault();
-        this.setState({description : event.target.value})
+        this.setState({description: event.target.value})
     };
+
+    uploadWidget = () => {
+        window.cloudinary.createUploadWidget(
+            {
+                cloudName: "dydimitrov",
+                uploadPreset: "reactBlog"
+            },
+            (error, result) => {
+
+                if (result && result.event === "success") {
+                    debugger
+                    this.setState({
+                        image: `https://res.cloudinary.com/dydimitrov/image/upload/${result.info.path}`, uploaded: true
+                    });
+                }
+            }
+        ).open()
+    }
 
     render() {
         return (
@@ -190,9 +211,17 @@ class PostCreate extends Component {
                         </MDBCol>
                     </MDBRow>
                     <MDBRow center>
-                        <MDBBtn color="primary" type="submit">
-                            Submit post
-                        </MDBBtn>
+                        <MDBCol md="6" className="mb-3">
+                            <MDBBtn color="success" onClick={() => this.uploadWidget()}>
+                                Upload Photo
+                            </MDBBtn>
+                            <label> You can upload ONE image for more clearity.</label>
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-3">
+                            <MDBBtn color="primary" type="submit">
+                                Submit post
+                            </MDBBtn>
+                        </MDBCol>
                     </MDBRow>
                 </form>
             </div>

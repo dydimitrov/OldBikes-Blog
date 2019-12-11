@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@app-masters/react-cloudinary-uploader": "^0.1.41",
+    "cloudinary-react": "^1.2.1",
     "jquery": "^3.4.1",
     "mdbreact": "^4.23.0",
     "prop-types": "latest",

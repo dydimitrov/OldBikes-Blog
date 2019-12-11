@@ -14,7 +14,8 @@ class EditPost extends Component {
             description: '',
             creatorId: '',
             date: '',
-            title: ''
+            title: '',
+            image:''
         }
     }
 
@@ -36,13 +37,14 @@ class EditPost extends Component {
                 this.setState({title: post.title})
                 this.setState({creatorId: post._acl.creator})
                 this.setState({date: post._kmd.lmt})
+                this.setState({image: post.image})
             });
     }
 
     submitHandler = event => {
         event.preventDefault();
         event.target.className += " was-validated";
-        this.props.onsubmit(this.state.id,this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title)
+        this.props.onsubmit(this.state.id,this.state.firstName,this.state.lastName,this.state.email,this.state.category,this.state.description,this.state.title,this.state.image)
         this.props.history.push('/')
     };
 
@@ -62,6 +64,24 @@ class EditPost extends Component {
         event.preventDefault();
         this.setState({description : event.target.value})
     };
+
+    uploadWidget = () => {
+        window.cloudinary.createUploadWidget(
+            {
+                cloudName: "dydimitrov",
+                uploadPreset: "reactBlog"
+            },
+            (error, result) => {
+
+                if (result && result.event === "success") {
+                    debugger
+                    this.setState({
+                        image: `https://res.cloudinary.com/dydimitrov/image/upload/${result.info.path}`, uploaded: true
+                    });
+                }
+            }
+        ).open()
+    }
 
     render() {
         return (
@@ -164,9 +184,17 @@ class EditPost extends Component {
                         </MDBCol>
                     </MDBRow>
                     <MDBRow center>
-                        <MDBBtn color="primary" type="submit">
-                            Save post
-                        </MDBBtn>
+                        <MDBCol md="6" className="mb-3">
+                            <MDBBtn color="success" onClick={() => this.uploadWidget()}>
+                                Upload Photo
+                            </MDBBtn>
+                            <label> You can upload ONE image for more clearity.</label>
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-3">
+                            <MDBBtn color="primary" type="submit">
+                                Save post
+                            </MDBBtn>
+                        </MDBCol>
                     </MDBRow>
                 </form>
             </div>

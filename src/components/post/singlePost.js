@@ -16,6 +16,7 @@ class SinglePost extends React.Component {
             creatorId: '',
             date: '',
             title: '',
+            image:'',
             isLoaded: false,
         }
     }
@@ -38,6 +39,7 @@ class SinglePost extends React.Component {
                 this.setState({title: post.title})
                 this.setState({creatorId: post._acl.creator})
                 this.setState({date: post._kmd.lmt})
+                this.setState({image: post.image})
             });
     }
 
@@ -52,7 +54,8 @@ class SinglePost extends React.Component {
             description,
             creatorId,
             date,
-            title
+            title,
+            image
         } = this.state;
         let isAuthor = creatorId === this.props.userId
         if (!isLoaded) {
@@ -65,9 +68,9 @@ class SinglePost extends React.Component {
                     </div>
                     <div className="card-body">
                         <div className="media d-block d-md-flex mt-3">
-                            <p><ReactAvatar round name={firstName + " " + lastName}/></p>
+                            <p><img src={image} width="300px" height="300px"/></p>
                             <div className="media-body text-center text-md-left ml-md-3 ml-0">
-                                <h5 className="mt-0 font-weight-bold">{firstName} {lastName}</h5>
+                                <h5 className="mt-0 font-weight-bold"><ReactAvatar round name={firstName + " " + lastName}/> {firstName} {lastName}</h5>
                                 {description}
                             </div>
                         </div>

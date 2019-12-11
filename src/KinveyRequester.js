@@ -40,12 +40,12 @@ const KinveyRequester = (function() {
         });
     }
 
-    function createPost(firstName, lastName,email,category, description,title) {
+    function createPost(firstName, lastName,email,category, description,title, image) {
         return $.ajax({
             method: "POST",
             url: baseUrl + "appdata/" + appKey + "/posts",
             headers: getKinveyUserAuthHeaders(),
-            data: { firstName, lastName,email,category, description,title }
+            data: { firstName, lastName,email,category, description,title, image }
         });
     }
 
@@ -73,12 +73,12 @@ const KinveyRequester = (function() {
         });
     }
 
-    function editPost(postId, firstName, lastName,email,category, description,title) {
+    function editPost(postId, firstName, lastName,email,category, description,title,image) {
         return $.ajax({
             method: "PUT",
             url: baseUrl + "appdata/" + appKey + "/posts/" + postId,
             headers: getKinveyUserAuthHeaders(),
-            data: { firstName, lastName,email,category, description,title}
+            data: { firstName, lastName,email,category, description,title,image}
         });
     }
 
