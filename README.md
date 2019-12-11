@@ -8,6 +8,7 @@ used external libraries in project:
 - react-avatar - to create avatar for users when they create a post - https://www.npmjs.com/package/react-avatar
 - react-responsive-carousel - used for landing page with slideshow from four images - https://www.npmjs.com/package/react-responsive-carousel
 - mdbreact - used for React Bootstrap with Material Design Components - https://www.npmjs.com/package/mdbreactjs
+- cloudinary-react and Cloudinary Upload Widget for uploading image to cloud based storage
 
 used Bakc-end:
 - Kinvey - https://console.kinvey.com/
