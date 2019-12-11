@@ -10,7 +10,7 @@ used external libraries in project:
 - mdbreact - used for React Bootstrap with Material Design Components - https://www.npmjs.com/package/mdbreactjs
 - cloudinary-react and Cloudinary Upload Widget for uploading image to cloud based storage
 
-used Bakc-end:
+used Back-end:
 - Kinvey - https://console.kinvey.com/
 
 Basic Functionality in Application
