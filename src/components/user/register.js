@@ -33,10 +33,10 @@ class Register extends Component {
     }
     handleSubmit = async (event) => {
         event.preventDefault();
-        let isUsernameValid = this.state.username.length > 6
-        let isPasswordValid = this.state.password.length > 6
-        let isFirstNameValid = this.state.firstName.length !== 0 && this.state.firstName.length > 3
-        let isLastNameValid = this.state.lastName.length !== 0 && this.state.lastName.length > 3
+        let isUsernameValid = this.state.username.length >= 6
+        let isPasswordValid = this.state.password.length >= 6
+        let isFirstNameValid = this.state.firstName.length !== 0 && this.state.firstName.length >= 3
+        let isLastNameValid = this.state.lastName.length !== 0 && this.state.lastName.length >= 3
 
         if (isFirstNameValid && isLastNameValid && isPasswordValid && isUsernameValid) {
             await this.props.onsubmit(

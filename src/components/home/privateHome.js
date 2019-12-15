@@ -29,7 +29,7 @@ class PrivateHome extends React.Component{
     getData(){
         KinveyRequester.findAllPosts()
             .then(response => {
-                this.getCurrentPosts(response.sort((a, b) => b._kmd.lmt - a._kmd.lmt))
+                this.getCurrentPosts(response.sort((a, b) => a._kmd.lmt - b._kmd.lmt))
                 this.setState({data:response})
             })
 
